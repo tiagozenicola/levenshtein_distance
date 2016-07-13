@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -17,7 +18,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME")
+    @Size(min = 1, max = 50)
+    @Column(name = "NAME", nullable = false, unique = true)
     private String name;
 
 }
