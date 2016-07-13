@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.levenshtein.model.Product;
 import com.levenshtein.service.ProductService;
 
+@RequestMapping(value=ProductController.PRODUCTS)
 @Controller
 public class ProductController {
 
+    protected static final String PRODUCTS = "/products";
+    
     @Autowired
     private ProductService service;
 
@@ -26,8 +29,8 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    private void create(@RequestBody String name) {
-        service.create(name);
+    private void create(@RequestBody Product product) {
+        service.create(product);
     }
 
 }

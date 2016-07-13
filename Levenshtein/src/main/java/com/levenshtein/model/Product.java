@@ -22,4 +22,11 @@ public class Product {
     @Column(name = "NAME", nullable = false, unique = true)
     private String name;
 
+    public Product() {
+    }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
 }
