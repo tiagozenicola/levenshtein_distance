@@ -29,4 +29,9 @@ public class Product {
         this.name = name;
     }
 
+    public boolean isSimilar(String word, int limit) {
+        // TODO Auto-generated method stub
+        return name != null ? name.length() == limit : false;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.levenshtein.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,21 @@ public class ProductService {
     }
 
     public Product create(Product product) {
-        final Product newProduct = new Product();
-        newProduct.setName(product.getName());
+        final Product newProduct = new Product(product.getName());
 
         return repository.save(newProduct);
+    }
+
+    public List<Product> search(String word, int limit) {
+        final List<Product> products = new ArrayList<>();
+
+        for (Product product : repository.findAll()) {
+            if (product.isSimilar(word, limit)) {
+                products.add(product);
+            }
+        }
+
+        return products;
     }
 
 }
