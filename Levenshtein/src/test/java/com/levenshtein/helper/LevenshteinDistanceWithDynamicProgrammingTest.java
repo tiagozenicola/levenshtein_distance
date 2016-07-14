@@ -7,7 +7,26 @@ import org.junit.Test;
 public class LevenshteinDistanceWithDynamicProgrammingTest {
 
     @Test
-    public void testingVersion1() {
+    public void testingLargeWords() {
+        Assert.assertEquals(10,
+                LevenshteinDistanceWithDynamicProgramming.calculateDistance(
+                        "palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1",
+                        "palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2"));
+        Assert.assertEquals(60, LevenshteinDistanceWithDynamicProgramming.calculateDistance(
+                "palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1",
+                "palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2"));
+        Assert.assertEquals(478, LevenshteinDistanceWithDynamicProgramming.calculateDistance(
+                "YPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGCYPMCBSFRGQAGOGC",
+                "CLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLFCLHFUAJGJBDTWLF"));
+    }
+
+    @Test
+    public void testingCaseSensitive() {
+        Assert.assertEquals(4, LevenshteinDistanceWithDynamicProgramming.calculateDistance("casa", "CASA"));
+    }
+
+    @Test
+    public void testingVersion2() {
         Assert.assertEquals(3, LevenshteinDistanceWithDynamicProgramming.calculateDistance("kitten", "sitting"));
         Assert.assertEquals(4, LevenshteinDistanceWithDynamicProgramming.calculateDistance("banana", "abacate"));
         Assert.assertEquals(5, LevenshteinDistanceWithDynamicProgramming.calculateDistance("cachorro", "cavalo"));
@@ -17,10 +36,6 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
         Assert.assertEquals(2, LevenshteinDistanceWithDynamicProgramming.calculateDistance("book", "back"));
         Assert.assertEquals(3, LevenshteinDistanceWithDynamicProgramming.calculateDistance("kitten", "sitting"));
         Assert.assertEquals(16, LevenshteinDistanceWithDynamicProgramming.calculateDistance("caminhao pesado", "eu estou de férias"));
-        Assert.assertEquals(10,
-                LevenshteinDistanceWithDynamicProgramming.calculateDistance(
-                        "palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1",
-                        "palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2"));
     }
 
     @Test
