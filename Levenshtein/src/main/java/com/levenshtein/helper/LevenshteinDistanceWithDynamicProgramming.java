@@ -6,6 +6,7 @@ public class LevenshteinDistanceWithDynamicProgramming {
         if (string1 == null) {
             string1 = "";
         }
+
         if (string2 == null) {
             string2 = "";
         }
@@ -22,12 +23,10 @@ public class LevenshteinDistanceWithDynamicProgramming {
 
         for (int i = 1; i < matrix.length; i++) {
             for (int j = 1; j < matrix[i].length; j++) {
+                int cost = 1;
 
-                int cost;
                 if (string1.charAt(i - 1) == string2.charAt(j - 1)) {
                     cost = 0;
-                } else {
-                    cost = 1;
                 }
 
                 matrix[i][j] = MathHelper.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);

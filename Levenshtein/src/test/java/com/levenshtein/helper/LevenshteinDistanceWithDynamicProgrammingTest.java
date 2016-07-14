@@ -1,6 +1,7 @@
 package com.levenshtein.helper;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class LevenshteinDistanceWithDynamicProgrammingTest {
@@ -15,7 +16,11 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
         Assert.assertEquals(5, LevenshteinDistanceWithDynamicProgramming.calculateDistance("tom", "jerry"));
         Assert.assertEquals(2, LevenshteinDistanceWithDynamicProgramming.calculateDistance("book", "back"));
         Assert.assertEquals(3, LevenshteinDistanceWithDynamicProgramming.calculateDistance("kitten", "sitting"));
-        Assert.assertEquals(17, LevenshteinDistanceWithDynamicProgramming.calculateDistance("caminhao", "eu estou de férias"));
+        Assert.assertEquals(16, LevenshteinDistanceWithDynamicProgramming.calculateDistance("caminhao pesado", "eu estou de férias"));
+        Assert.assertEquals(10,
+                LevenshteinDistanceWithDynamicProgramming.calculateDistance(
+                        "palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1palavra1",
+                        "palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2palavra2"));
     }
 
     @Test
@@ -40,6 +45,7 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
         Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("", ""));
     }
 
+    @Ignore
     @Test
     public void loadTest() {
         for (int i = 0; i < 1000000; i++) {
@@ -52,6 +58,5 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
             Assert.assertEquals(3, LevenshteinDistanceWithDynamicProgramming.calculateDistance("kitten", "sitting"));
         }
     }
-
 
 }

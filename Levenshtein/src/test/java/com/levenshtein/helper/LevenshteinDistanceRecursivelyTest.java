@@ -1,6 +1,7 @@
 package com.levenshtein.helper;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class LevenshteinDistanceRecursivelyTest {
@@ -39,9 +40,10 @@ public class LevenshteinDistanceRecursivelyTest {
         Assert.assertEquals(0, LevenshteinDistanceRecursively.calculateDistance("", ""));
     }
 
+    @Ignore // too slow!
     @Test
     public void loadTest() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             Assert.assertEquals(4, LevenshteinDistanceRecursively.calculateDistance("banana", "abacate"));
             Assert.assertEquals(5, LevenshteinDistanceRecursively.calculateDistance("cachorro", "cavalo"));
             Assert.assertEquals(7, LevenshteinDistanceRecursively.calculateDistance("ovo", "macarrão"));
