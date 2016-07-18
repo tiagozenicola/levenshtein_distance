@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
 
-public class ProductControllerTest extends TestSuperClass {
+public class ProductCreationTest extends TestSuperClass {
 
     private static final String APPLICATION_JSON = "application/json";
 
@@ -48,6 +48,15 @@ public class ProductControllerTest extends TestSuperClass {
         callCreateService(product).andExpect(status().isBadRequest());
 
         assertsForSuccess("banana");
+    }
+
+    @Test
+    public void createProductWithLargeName() throws Exception {
+        final Product product = new Product("LargeNameLargeNameLargeNameLargeNameLargeNameLargeNameLargeNameLargeNameLargeName");
+
+        callCreateService(product).andExpect(status().isBadRequest());
+
+        assertsForFail();
     }
 
     @Test
