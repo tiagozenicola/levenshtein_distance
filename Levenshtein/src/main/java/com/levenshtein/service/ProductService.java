@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.levenshtein.helper.LevenshteinDistanceWithDynamicProgramming;
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
 
@@ -29,7 +30,7 @@ public class ProductService {
         final List<Product> products = new ArrayList<>();
 
         for (Product product : repository.findAll()) {
-            if (product.isSimilar(word, limit)) {
+            if (LevenshteinDistanceWithDynamicProgramming.calculateDistance(word, product.getName()) <= limit) {
                 products.add(product);
             }
         }
