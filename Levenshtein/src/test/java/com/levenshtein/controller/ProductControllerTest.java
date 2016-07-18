@@ -4,38 +4,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.annotation.Resource;
-
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
-import com.levenshtein.Application;
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(Application.class)
-@WebIntegrationTest(randomPort = true)
-public class ProductControllerTest {
+public class ProductControllerTest extends SuperTest {
 
     private static final String APPLICATION_JSON = "application/json";
 
     private static final String CONTENT_TYPE = "Content-Type";
 
     private static final String PRODUCTS = "/products";
-
-    private MockMvc mockMvc;
 
     private String productName = "banana";
 
@@ -44,13 +28,10 @@ public class ProductControllerTest {
     @Autowired
     private ProductRepository productRepository;
 
-    @Resource
-    private WebApplicationContext webApplicationContext;
-
-    @Before
-    public void before() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-
+    @Override
+    public void before() throws Exception {
+        super.before();
+        
         productRepository.deleteAll();
     }
 
