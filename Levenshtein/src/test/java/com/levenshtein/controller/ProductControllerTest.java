@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
 
-public class ProductControllerTest extends SuperTest {
+public class ProductControllerTest extends TestSuperClass {
 
     private static final String APPLICATION_JSON = "application/json";
 
@@ -21,9 +21,9 @@ public class ProductControllerTest extends SuperTest {
 
     private static final String PRODUCTS = "/products";
 
-    private String productName = "banana";
-
     private Product product = new Product(productName);
+
+    private String productName = "banana";
 
     @Autowired
     private ProductRepository productRepository;
@@ -31,7 +31,7 @@ public class ProductControllerTest extends SuperTest {
     @Override
     public void before() throws Exception {
         super.before();
-        
+
         productRepository.deleteAll();
     }
 
@@ -71,13 +71,13 @@ public class ProductControllerTest extends SuperTest {
         mockMvc.perform(get(PRODUCTS)).andExpect(status().isOk());
     }
 
+    private void assertsForFail() {
+        Assert.assertEquals(0, productRepository.count());
+    }
+
     private void assertsForSuccess(String productName) {
         Assert.assertEquals(1, productRepository.count());
         Assert.assertEquals(productName, productRepository.findAll().get(0).getName());
-    }
-
-    private void assertsForFail() {
-        Assert.assertEquals(0, productRepository.count());
     }
 
     private ResultActions callService(Product product) throws Exception {

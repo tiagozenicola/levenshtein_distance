@@ -16,7 +16,7 @@ import com.levenshtein.Application;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 @WebIntegrationTest(randomPort = true)
-public class SuperTest {
+public class TestSuperClass {
 
     @Resource
     private WebApplicationContext webApplicationContext;

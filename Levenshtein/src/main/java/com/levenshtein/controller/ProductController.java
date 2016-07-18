@@ -22,6 +22,12 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    private void create(@RequestBody Product product) {
+        service.create(product);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     private List<Product> read() {
@@ -32,12 +38,6 @@ public class ProductController {
     @ResponseBody
     private List<Product> search(@RequestParam String word, @RequestParam(defaultValue = "3") int limit) {
         return service.search(word, limit);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    private void create(@RequestBody Product product) {
-        service.create(product);
     }
 
 }

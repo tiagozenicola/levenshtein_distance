@@ -16,14 +16,14 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public List<Product> read() {
-        return repository.findAll();
-    }
-
     public Product create(Product product) {
         final Product newProduct = new Product(product.getName());
 
         return repository.save(newProduct);
+    }
+
+    public List<Product> read() {
+        return repository.findAll();
     }
 
     public List<Product> search(String word, int limit) {
