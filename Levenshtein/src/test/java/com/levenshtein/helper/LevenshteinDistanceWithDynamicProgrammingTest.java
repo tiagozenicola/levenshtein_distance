@@ -24,6 +24,11 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
     public void testingCaseSensitive() {
         Assert.assertEquals(4, LevenshteinDistanceWithDynamicProgramming.calculateDistance("casa", "CASA"));
     }
+    
+    @Test
+    public void testingAccent() {
+    	Assert.assertEquals(2, LevenshteinDistanceWithDynamicProgramming.calculateDistance("órgão", "orgao"));
+    }
 
     @Test
     public void testingVersion2() {
