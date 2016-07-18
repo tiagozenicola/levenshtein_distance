@@ -4,6 +4,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -32,18 +35,11 @@ public class ProductSearchTest extends TestSuperClass {
             testInitialized = true;
             productRepository.deleteAll();
 
-            callCreateService(new Product("banana")).andExpect(status().isOk());
-            callCreateService(new Product("melão")).andExpect(status().isOk());
-            callCreateService(new Product("goiaba")).andExpect(status().isOk());
-            callCreateService(new Product("chuva")).andExpect(status().isOk());
-            callCreateService(new Product("computador")).andExpect(status().isOk());
-            callCreateService(new Product("iphone")).andExpect(status().isOk());
-            callCreateService(new Product("vento")).andExpect(status().isOk());
-            callCreateService(new Product("bolosalgado")).andExpect(status().isOk());
-            callCreateService(new Product("xuxasóparabaixinhos")).andExpect(status().isOk());
-            callCreateService(new Product("losangeles")).andExpect(status().isOk());
-            callCreateService(new Product("paris")).andExpect(status().isOk());
-            callCreateService(new Product("silviosantos")).andExpect(status().isOk());
+            final List<?> words = IOUtils.readLines(this.getClass().getResourceAsStream("/list-of-words"), "UTF-8");
+
+            for (Object word : words) {
+                callCreateService(new Product(word.toString())).andExpect(status().isOk());
+            }
         }
     }
 
