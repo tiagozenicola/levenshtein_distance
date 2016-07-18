@@ -1,7 +1,6 @@
 package com.levenshtein.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -11,17 +10,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.google.gson.Gson;
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
 
 public class ProductSearchTest extends TestSuperClass {
-
-    private static final String APPLICATION_JSON = "application/json";
-
-    private static final String CONTENT_TYPE = "Content-Type";
-
-    private static final String PRODUCTS = "/products";
 
     private static final String SEARCH = "/search";
 
@@ -136,11 +128,6 @@ public class ProductSearchTest extends TestSuperClass {
         final String expectedResult = "[{\"id\":1,\"name\":\"banana\"},{\"id\":2,\"name\":\"melão\"},{\"id\":4,\"name\":\"chuva\"},{\"id\":6,\"name\":\"iphone\"},{\"id\":7,\"name\":\"vento\"},{\"id\":11,\"name\":\"paris\"}]";
 
         callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
-    }
-
-    private ResultActions callCreateService(Product product) throws Exception {
-        final String productAsJson = new Gson().toJson(product, Product.class);
-        return mockMvc.perform(post(PRODUCTS).header(CONTENT_TYPE, APPLICATION_JSON).content(productAsJson));
     }
 
     private ResultActions callSearchService(String keyword) throws Exception {

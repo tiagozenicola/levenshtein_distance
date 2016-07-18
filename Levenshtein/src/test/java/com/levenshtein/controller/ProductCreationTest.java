@@ -1,25 +1,15 @@
 package com.levenshtein.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.ResultActions;
 
-import com.google.gson.Gson;
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
 
 public class ProductCreationTest extends TestSuperClass {
-
-    private static final String APPLICATION_JSON = "application/json";
-
-    private static final String CONTENT_TYPE = "Content-Type";
-
-    private static final String PRODUCTS = "/products";
 
     @Autowired
     private ProductRepository productRepository;
@@ -29,15 +19,6 @@ public class ProductCreationTest extends TestSuperClass {
         super.before();
 
         productRepository.deleteAll();
-    }
-
-    @Test
-    public void createNewProduct() throws Exception {
-        final Product product = new Product("banana");
-
-        callCreateService(product).andExpect(status().isOk());
-
-        assertsForSuccess("banana");
     }
 
     @Test
@@ -78,8 +59,12 @@ public class ProductCreationTest extends TestSuperClass {
     }
 
     @Test
-    public void read() throws Exception {
-        mockMvc.perform(get(PRODUCTS)).andExpect(status().isOk());
+    public void createProductWithValidName() throws Exception {
+        final Product product = new Product("banana");
+
+        callCreateService(product).andExpect(status().isOk());
+
+        assertsForSuccess("banana");
     }
 
     private void assertsForFail() {
@@ -89,11 +74,6 @@ public class ProductCreationTest extends TestSuperClass {
     private void assertsForSuccess(String productName) {
         Assert.assertEquals(1, productRepository.count());
         Assert.assertEquals(productName, productRepository.findAll().get(0).getName());
-    }
-
-    private ResultActions callCreateService(Product product) throws Exception {
-        final String productAsJson = new Gson().toJson(product, Product.class);
-        return mockMvc.perform(post(PRODUCTS).header(CONTENT_TYPE, APPLICATION_JSON).content(productAsJson));
     }
 
 }
