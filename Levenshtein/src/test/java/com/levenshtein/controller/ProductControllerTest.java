@@ -21,10 +21,6 @@ public class ProductControllerTest extends TestSuperClass {
 
     private static final String PRODUCTS = "/products";
 
-    private Product product = new Product(productName);
-
-    private String productName = "banana";
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -37,31 +33,37 @@ public class ProductControllerTest extends TestSuperClass {
 
     @Test
     public void createNewProduct() throws Exception {
-        callService(product).andExpect(status().isOk());
+        final Product product = new Product("banana");
 
-        assertsForSuccess(productName);
+        callCreateService(product).andExpect(status().isOk());
+
+        assertsForSuccess("banana");
     }
 
     @Test
     public void createProductWithDuplicatedName() throws Exception {
-        callService(product).andExpect(status().isOk());
-        callService(product).andExpect(status().isBadRequest());
+        final Product product = new Product("banana");
 
-        assertsForSuccess(productName);
+        callCreateService(product).andExpect(status().isOk());
+        callCreateService(product).andExpect(status().isBadRequest());
+
+        assertsForSuccess("banana");
     }
 
     @Test
     public void createProductWithNameEmpty() throws Exception {
-        product.setName("");
-        callService(product).andExpect(status().isBadRequest());
+        final Product product = new Product("");
+
+        callCreateService(product).andExpect(status().isBadRequest());
 
         assertsForFail();
     }
 
     @Test
     public void createProductWithNameNull() throws Exception {
-        product.setName(null);
-        callService(product).andExpect(status().isBadRequest());
+        final Product product = new Product();
+
+        callCreateService(product).andExpect(status().isBadRequest());
 
         assertsForFail();
     }
@@ -80,7 +82,7 @@ public class ProductControllerTest extends TestSuperClass {
         Assert.assertEquals(productName, productRepository.findAll().get(0).getName());
     }
 
-    private ResultActions callService(Product product) throws Exception {
+    private ResultActions callCreateService(Product product) throws Exception {
         final String productAsJson = new Gson().toJson(product, Product.class);
         return mockMvc.perform(post(PRODUCTS).header(CONTENT_TYPE, APPLICATION_JSON).content(productAsJson));
     }
