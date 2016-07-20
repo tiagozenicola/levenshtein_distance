@@ -22,12 +22,20 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
 
     @Test
     public void testingAccent() {
-        Assert.assertEquals(2, LevenshteinDistanceWithDynamicProgramming.calculateDistance("órgão", "orgao"));
+        Assert.assertEquals(1, LevenshteinDistanceWithDynamicProgramming.calculateDistance("celular", "célula"));
+        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("órgão", "orgao"));
+        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("áéíóú ãẽĩõũ àèìòù äëïöü", "aeiou aeiou aeiou aeiou"));
     }
 
     @Test
     public void testingCaseSensitive() {
-        Assert.assertEquals(4, LevenshteinDistanceWithDynamicProgramming.calculateDistance("casa", "CASA"));
+        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("casa", "CASA"));
+        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("asdbqhbcnmmwk sdcfnwejqrfhxcvopipqwemkfnxc", "ASDBQHBCNMMWK SDCFNWEJQRFHXCVOPIPQWEMKFNXC"));
+    }
+    
+    @Test
+    public void testingSpaces() {
+        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("cachorro molhado", "   cachorro    molhado   "));
     }
 
     @Test

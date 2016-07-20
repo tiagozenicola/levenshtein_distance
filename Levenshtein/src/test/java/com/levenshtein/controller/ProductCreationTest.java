@@ -59,12 +59,39 @@ public class ProductCreationTest extends TestSuperClass {
     }
 
     @Test
+    public void createProductWithNameWithAccents() throws Exception {
+        final Product product = new Product("áéíóú   ãẽĩõũ   àèìòù   äëïöü");
+
+        callCreateService(product).andExpect(status().isOk());
+
+        assertsForSuccess("áéíóú ãẽĩõũ àèìòù äëïöü");
+    }
+
+    @Test
+    public void createProductWithSpaces() throws Exception {
+        final Product product = new Product("      ");
+
+        callCreateService(product).andExpect(status().isBadRequest());
+
+        assertsForFail();
+    }
+
+    @Test
     public void createProductWithValidName() throws Exception {
         final Product product = new Product("banana");
 
         callCreateService(product).andExpect(status().isOk());
 
         assertsForSuccess("banana");
+    }
+
+    @Test
+    public void createProductWithValidNameAndSpaces() throws Exception {
+        final Product product = new Product("    ban    ana    bla    ");
+
+        callCreateService(product).andExpect(status().isOk());
+
+        assertsForSuccess("ban ana bla");
     }
 
     private void assertsForFail() {

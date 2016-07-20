@@ -1,15 +1,12 @@
 package com.levenshtein.helper;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class LevenshteinDistanceWithDynamicProgramming {
 
     public static int calculateDistance(String string1, String string2) {
-        if (string1 == null) {
-            string1 = "";
-        }
-
-        if (string2 == null) {
-            string2 = "";
-        }
+        string1 = parse(string1);
+        string2 = parse(string2);
 
         final int[][] matrix = new int[string1.length() + 1][string2.length() + 1];
 
@@ -34,6 +31,16 @@ public class LevenshteinDistanceWithDynamicProgramming {
         }
 
         return matrix[string1.length()][string2.length()];
+    }
+
+    private static String parse(String string) {
+        if (string == null) {
+            return "";
+        }
+
+        string = StringHelper.removeSpaces(string);
+
+        return StringUtils.stripAccents(string.toLowerCase());
     }
 
 }
