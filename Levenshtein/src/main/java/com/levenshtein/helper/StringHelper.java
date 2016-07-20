@@ -7,7 +7,7 @@ public class StringHelper {
             return null;
         }
 
-        return string.trim().replaceAll(" +", " ");
+        return string.trim().replaceAll("\\s+", " ");
     }
 
 }
