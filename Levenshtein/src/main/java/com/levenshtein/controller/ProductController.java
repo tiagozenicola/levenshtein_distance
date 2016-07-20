@@ -3,6 +3,8 @@ package com.levenshtein.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +26,10 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    private void create(@RequestBody Product product) {
+    private ResponseEntity<?> create(@RequestBody Product product) {
         service.create(product);
+        
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)

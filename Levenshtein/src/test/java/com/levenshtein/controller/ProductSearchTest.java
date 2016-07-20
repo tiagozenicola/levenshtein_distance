@@ -38,7 +38,7 @@ public class ProductSearchTest extends TestSuperClass {
             final List<?> words = IOUtils.readLines(this.getClass().getResourceAsStream("/list-of-words"), "UTF-8");
 
             for (Object word : words) {
-                callCreateService(new Product(word.toString())).andExpect(status().isOk());
+                callCreateService(new Product(word.toString())).andExpect(status().isCreated());
             }
         }
     }
