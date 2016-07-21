@@ -30,7 +30,7 @@ public class ProductService {
     public List<Product> search(String word, int limit) {
         final List<Product> products = new ArrayList<>();
 
-        for (Product product : repository.findAllByNameSize(word.length()-limit, word.length()+limit)) {
+        for (Product product : repository.findAllByNameSize(word.length() - limit, word.length() + limit)) {
             if (LevenshteinDistanceWithDynamicProgramming.calculateDistance(word, product.getName()) <= limit) {
                 products.add(product);
             }

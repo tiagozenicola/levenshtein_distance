@@ -28,7 +28,7 @@ public class ProductController {
     @ResponseBody
     private ResponseEntity<?> create(@RequestBody Product product) {
         service.create(product);
-        
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

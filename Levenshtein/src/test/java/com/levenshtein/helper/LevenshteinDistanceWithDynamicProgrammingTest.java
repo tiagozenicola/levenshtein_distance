@@ -24,18 +24,15 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
     public void testingAccent() {
         Assert.assertEquals(1, LevenshteinDistanceWithDynamicProgramming.calculateDistance("celular", "célula"));
         Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("órgão", "orgao"));
-        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("áéíóú ãẽĩõũ àèìòù äëïöü", "aeiou aeiou aeiou aeiou"));
+        Assert.assertEquals(0,
+                LevenshteinDistanceWithDynamicProgramming.calculateDistance("áéíóú ãẽĩõũ àèìòù äëïöü", "aeiou aeiou aeiou aeiou"));
     }
 
     @Test
     public void testingCaseSensitive() {
         Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("casa", "CASA"));
-        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("asdbqhbcnmmwk sdcfnwejqrfhxcvopipqwemkfnxc", "ASDBQHBCNMMWK SDCFNWEJQRFHXCVOPIPQWEMKFNXC"));
-    }
-    
-    @Test
-    public void testingSpaces() {
-        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("cachorro molhado", "   cachorro    molhado   "));
+        Assert.assertEquals(0, LevenshteinDistanceWithDynamicProgramming.calculateDistance("asdbqhbcnmmwk sdcfnwejqrfhxcvopipqwemkfnxc",
+                "ASDBQHBCNMMWK SDCFNWEJQRFHXCVOPIPQWEMKFNXC"));
     }
 
     @Test
@@ -75,7 +72,13 @@ public class LevenshteinDistanceWithDynamicProgrammingTest {
     }
 
     @Test
-    public void testingVersion2() {
+    public void testingSpaces() {
+        Assert.assertEquals(0,
+                LevenshteinDistanceWithDynamicProgramming.calculateDistance("cachorro molhado", "   cachorro    molhado   "));
+    }
+
+    @Test
+    public void testingWithSuccess() {
         Assert.assertEquals(3, LevenshteinDistanceWithDynamicProgramming.calculateDistance("kitten", "sitting"));
         Assert.assertEquals(4, LevenshteinDistanceWithDynamicProgramming.calculateDistance("banana", "abacate"));
         Assert.assertEquals(5, LevenshteinDistanceWithDynamicProgramming.calculateDistance("cachorro", "cavalo"));
