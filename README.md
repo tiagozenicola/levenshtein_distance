@@ -1,11 +1,11 @@
-### test the app ###
+### Test the app ###
 mvn test
 
-### build the app ###
+### Build the app ###
 mvn clean package
 
-### run the app using maven ###
+### Run the app using maven ###
 mvn spring-boot:run
 
-### run the jar file ###
+### Run the jar file ###
 java -jar target/levenshtein-0.0.1-SNAPSHOT.jar
