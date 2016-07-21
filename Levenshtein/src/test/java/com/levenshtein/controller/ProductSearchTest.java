@@ -1,14 +1,15 @@
 package com.levenshtein.controller;
 
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,7 +23,7 @@ public class ProductSearchTest extends TestSuperClass {
 
     private static boolean testInitialized = false;
 
-    private final String keyword = "chapolin";
+    private String keyword = "chapolin";
 
     @Autowired
     private ProductRepository productRepository;
@@ -35,7 +36,7 @@ public class ProductSearchTest extends TestSuperClass {
             testInitialized = true;
             productRepository.deleteAll();
 
-            final List<?> words = IOUtils.readLines(this.getClass().getResourceAsStream("/list-of-words"), "UTF-8");
+            final List<?> words = IOUtils.readLines(this.getClass().getResourceAsStream("/small-list-of-words"), "UTF-8");
 
             for (Object word : words) {
                 callCreateService(new Product(word.toString())).andExpect(status().isCreated());
@@ -45,85 +46,64 @@ public class ProductSearchTest extends TestSuperClass {
 
     @Test
     public void testingSearchWithNoThreshold() throws Exception {
-        final String expectedResult = "[]";
-
-        callSearchService(keyword).andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    	callSearchService(keyword).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(6))))
+    	.andExpect((jsonPath("$[*].name", contains("chapolin1","chapolin2","chapolin11","chapolin22","chapolin111","chapolin222"))));
     }
 
     @Test
-    public void testingSearchWithThreshold0() throws Exception {
+    public void testingSearchWithThreshold0AndWordFound() throws Exception {
+    	keyword = "chapolin1";
+    	
         final Integer threshold = 0;
 
-        final String expectedResult = "[]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    	callSearchService(keyword, threshold).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(1))))
+    	.andExpect((jsonPath("$[*].name", contains("chapolin1"))));
     }
 
+    @Test
+    public void testingSearchWithThreshold0AndWordNotFound() throws Exception {
+    	final Integer threshold = 0;
+    	
+    	callSearchService(keyword, threshold).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(0))));
+    }
+    
     @Test
     public void testingSearchWithThreshold1() throws Exception {
         final Integer threshold = 1;
 
-        final String expectedResult = "[]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    	callSearchService(keyword, threshold).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(2))))
+    	.andExpect((jsonPath("$[*].name", contains("chapolin1","chapolin2"))));
     }
 
     @Test
     public void testingSearchWithThreshold2() throws Exception {
         final Integer threshold = 2;
 
-        final String expectedResult = "[]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    	callSearchService(keyword, threshold).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(4))))
+    	.andExpect((jsonPath("$[*].name", contains("chapolin1","chapolin2","chapolin11","chapolin22"))));
     }
 
     @Test
     public void testingSearchWithThreshold3() throws Exception {
         final Integer threshold = 3;
 
-        final String expectedResult = "[]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    	callSearchService(keyword, threshold).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(6))))
+    	.andExpect((jsonPath("$[*].name", contains("chapolin1","chapolin2","chapolin11","chapolin22","chapolin111","chapolin222"))));
     }
 
     @Test
     public void testingSearchWithThreshold4() throws Exception {
         final Integer threshold = 4;
 
-        final String expectedResult = "[]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
-    }
-
-    @Test
-    public void testingSearchWithThreshold5() throws Exception {
-        final Integer threshold = 5;
-
-        final String expectedResult = "[]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
-    }
-
-    // TODO retirar id dos asserts
-    @Ignore
-    @Test
-    public void testingSearchWithThreshold6() throws Exception {
-        final Integer threshold = 6;
-
-        final String expectedResult = "[{\"id\":4,\"name\":\"chuva\"},{\"id\":11,\"name\":\"paris\"}]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
-    }
-
-    // TODO retirar id dos asserts
-    @Ignore
-    @Test
-    public void testingSearchWithThreshold7() throws Exception {
-        final Integer threshold = 7;
-
-        final String expectedResult = "[{\"id\":1,\"name\":\"banana\"},{\"id\":2,\"name\":\"melão\"},{\"id\":4,\"name\":\"chuva\"},{\"id\":6,\"name\":\"iphone\"},{\"id\":7,\"name\":\"vento\"},{\"id\":11,\"name\":\"paris\"}]";
-
-        callSearchService(keyword, threshold).andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    	callSearchService(keyword, threshold).andExpect(status().isOk())
+    	.andExpect((jsonPath("$", hasSize(8))))
+    	.andExpect((jsonPath("$[*].name", contains("chapolin1","chapolin2","chapolin11","chapolin22","chapolin111","chapolin222","chapolin1111","chapolin2222"))));
     }
 
     private ResultActions callSearchService(String keyword) throws Exception {
