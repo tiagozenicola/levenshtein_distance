@@ -6,9 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.ResultActions;
@@ -68,15 +65,7 @@ public class ProductReadingTest extends TestSuperClass {
 
     private String getIdFromResponse(final ResultActions resultActions) {
         final String header = resultActions.andReturn().getResponse().getHeader("Location");
-
-        final Pattern pattern = Pattern.compile(".*/(\\d+)");
-        final Matcher matcher = pattern.matcher(header);
-
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-
-        return null;
+        return header.replaceAll(".*products/", "");
     }
 
 }
