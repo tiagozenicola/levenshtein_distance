@@ -6,8 +6,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.ResultActions;
 
 import com.levenshtein.model.Product;
 import com.levenshtein.repository.ProductRepository;
@@ -25,7 +29,26 @@ public class ProductReadingTest extends TestSuperClass {
     }
 
     @Test
-    public void readWorksWithManyProducts() throws Exception {
+    public void getByIdFound() throws Exception {
+        final ResultActions resultActions = callCreateService(new Product("blablabla"));
+
+        final String id = getIdFromResponse(resultActions);
+
+        mockMvc.perform(get(PRODUCTS + "/" + id))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("name").value("blablabla"));
+    }
+
+    @Test
+    public void getByIdNotFound() throws Exception {
+        final String id = "999999999";
+        
+        mockMvc.perform(get(PRODUCTS + "/" + id))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void listAllProductsWorksWithManyProducts() throws Exception {
         callCreateService(new Product("book"));
         callCreateService(new Product("apple"));
         callCreateService(new Product("pencil"));
@@ -33,14 +56,27 @@ public class ProductReadingTest extends TestSuperClass {
         mockMvc.perform(get(PRODUCTS))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(3)))
-            .andExpect(jsonPath("$[*].name", contains("book","apple","pencil")));
+            .andExpect(jsonPath("$[*].name", contains("book", "apple", "pencil")));
     }
 
     @Test
-    public void readWorksWithNoProducts() throws Exception {
+    public void listAllProductsWorksWithNoProducts() throws Exception {
         mockMvc.perform(get(PRODUCTS))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    private String getIdFromResponse(final ResultActions resultActions) {
+        final String header = resultActions.andReturn().getResponse().getHeader("Location");
+
+        final Pattern pattern = Pattern.compile(".*/(\\d+)");
+        final Matcher matcher = pattern.matcher(header);
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        return null;
     }
 
 }

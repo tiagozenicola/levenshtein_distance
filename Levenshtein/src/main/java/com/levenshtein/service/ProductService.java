@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.levenshtein.exception.ProductNotFoundException;
 import com.levenshtein.helper.LevenshteinDistanceWithDynamicProgramming;
 import com.levenshtein.helper.StringHelper;
 import com.levenshtein.model.Product;
@@ -20,11 +21,21 @@ public class ProductService {
     public Product create(Product product) {
         final String name = StringHelper.removeSpaces(product.getName());
 
-        return repository.save(new Product(name));
+        return repository.saveAndFlush(new Product(name));
     }
 
     public List<Product> read() {
         return repository.findAll();
+    }
+
+    public Product read(Long id) {
+        final Product product = repository.findOne(id);
+        
+        if (product == null){
+            throw new ProductNotFoundException();
+        }
+        
+        return product;
     }
 
     public List<Product> search(String word, int limit) {

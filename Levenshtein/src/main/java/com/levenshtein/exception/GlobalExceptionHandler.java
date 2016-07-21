@@ -17,19 +17,24 @@ public class GlobalExceptionHandler implements ErrorHandler {
 
     private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
 
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Data integrity violation")
+    @ExceptionHandler({ DataIntegrityViolationException.class, ConstraintViolationException.class })
+    public void handleDatabaseException() {
+    }
+
     @Override
     public void handleError(Throwable throwable) {
         logger.error(throwable);
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Data integrity violation")
-    @ExceptionHandler({ DataIntegrityViolationException.class, ConstraintViolationException.class })
-    public void handleException() {
-    }
-
     @ExceptionHandler(Exception.class)
     public @ResponseBody ResponseEntity<String> handleException(final Exception exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Product Not Found")
+    @ExceptionHandler(ProductNotFoundException.class)
+    public void handleProductNotFoundException() {
     }
 
 }
