@@ -1,6 +1,9 @@
 package com.levenshtein.controller;
 
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -27,12 +30,17 @@ public class ProductReadingTest extends TestSuperClass {
         callCreateService(new Product("apple"));
         callCreateService(new Product("pencil"));
 
-        mockMvc.perform(get(PRODUCTS)).andExpect(status().isOk());
+        mockMvc.perform(get(PRODUCTS))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(3)))
+            .andExpect(jsonPath("$[*].name", contains("book","apple","pencil")));
     }
 
     @Test
     public void readWorksWithNoProducts() throws Exception {
-        mockMvc.perform(get(PRODUCTS)).andExpect(status().isOk());
+        mockMvc.perform(get(PRODUCTS))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(0)));
     }
 
 }
