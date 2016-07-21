@@ -26,7 +26,7 @@ public class ProductCreationTest extends TestSuperClass {
         final Product product = new Product("banana");
 
         callCreateService(product).andExpect(status().isCreated());
-        callCreateService(product).andExpect(status().isBadRequest());
+        callCreateService(product).andExpect(status().isConflict());
 
         assertsForSuccess("banana");
     }
@@ -35,7 +35,7 @@ public class ProductCreationTest extends TestSuperClass {
     public void createProductWithLargeName() throws Exception {
         final Product product = new Product("LargeNameLargeNameLargeNameLargeNameLargeNameLargeNameLargeNameLargeNameLargeName");
 
-        callCreateService(product).andExpect(status().isBadRequest());
+        callCreateService(product).andExpect(status().isUnprocessableEntity());
 
         assertsForFail();
     }
@@ -44,7 +44,7 @@ public class ProductCreationTest extends TestSuperClass {
     public void createProductWithNameEmpty() throws Exception {
         final Product product = new Product("");
 
-        callCreateService(product).andExpect(status().isBadRequest());
+        callCreateService(product).andExpect(status().isUnprocessableEntity());
 
         assertsForFail();
     }
@@ -53,7 +53,7 @@ public class ProductCreationTest extends TestSuperClass {
     public void createProductWithNameNull() throws Exception {
         final Product product = new Product();
 
-        callCreateService(product).andExpect(status().isBadRequest());
+        callCreateService(product).andExpect(status().isConflict());
 
         assertsForFail();
     }
@@ -71,7 +71,7 @@ public class ProductCreationTest extends TestSuperClass {
     public void createProductWithSpaces() throws Exception {
         final Product product = new Product("      ");
 
-        callCreateService(product).andExpect(status().isBadRequest());
+        callCreateService(product).andExpect(status().isUnprocessableEntity());
 
         assertsForFail();
     }

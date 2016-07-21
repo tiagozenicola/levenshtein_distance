@@ -17,9 +17,14 @@ public class GlobalExceptionHandler implements ErrorHandler {
 
     private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Data integrity violation")
-    @ExceptionHandler({ DataIntegrityViolationException.class, ConstraintViolationException.class })
-    public void handleDatabaseException() {
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason = "Unable to process value or size does not fit")
+    @ExceptionHandler(ConstraintViolationException.class)
+    public void handleConstraintViolationException() {
+    }
+
+    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Resource already exists or value is null")
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public void handleDataIntegrityViolationException() {
     }
 
     @Override
