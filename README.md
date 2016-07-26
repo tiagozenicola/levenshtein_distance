@@ -9,3 +9,15 @@ mvn spring-boot:run
 
 ### Run the jar file ###
 java -jar target/levenshtein-0.0.1-SNAPSHOT.jar
+
+
+
+
+
+
+
+### Docker build ###
+mvn package docker:build
+
+### Run using docker ###
+docker run -p 8080:8080 -t levenshtein-docker-image-prefix/levenshtein:latest
