@@ -3,7 +3,7 @@ More information can be found here: https://en.wikipedia.org/wiki/Levenshtein_di
 
 
 
-
+---
 
 ### Test the app ###
 mvn test
@@ -20,7 +20,7 @@ java -jar target/levenshtein-0.0.1-SNAPSHOT.jar
 
 
 
-
+___
 
 
 
