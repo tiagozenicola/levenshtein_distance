@@ -1,3 +1,10 @@
+### This is an implementation of Levenshtein_distance ###
+More information can be found here: https://en.wikipedia.org/wiki/Levenshtein_distance
+
+
+
+
+
 ### Test the app ###
 mvn test
 
