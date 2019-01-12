@@ -2,6 +2,7 @@ package com.tiagozenicola.levenshtein.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,13 +30,13 @@ public class ProductService {
     }
 
     public Product read(Long id) {
-        final Product product = repository.findOne(id);
+        final Optional<Product> product = repository.findById(id);
         
         if (product == null){
             throw new ProductNotFoundException();
         }
         
-        return product;
+        return product.get();
     }
 
     public List<Product> search(String word, int limit) {
