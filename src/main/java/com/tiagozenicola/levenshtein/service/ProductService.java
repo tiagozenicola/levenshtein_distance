@@ -32,11 +32,7 @@ public class ProductService {
     public Product read(Long id) {
         final Optional<Product> product = repository.findById(id);
         
-        if (product == null){
-            throw new ProductNotFoundException();
-        }
-        
-        return product.get();
+        return product.orElseThrow(() -> new ProductNotFoundException());
     }
 
     public List<Product> search(String word, int limit) {
