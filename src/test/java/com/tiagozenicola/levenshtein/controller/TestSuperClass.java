@@ -2,26 +2,21 @@ package com.tiagozenicola.levenshtein.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import javax.annotation.Resource;
-
-import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
-import com.tiagozenicola.levenshtein.Application;
 import com.tiagozenicola.levenshtein.model.Product;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(Application.class)
-@WebIntegrationTest(randomPort = true)
-public class TestSuperClass {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public abstract class TestSuperClass {
 
     private static final String APPLICATION_JSON = "application/json";
 
@@ -29,15 +24,11 @@ public class TestSuperClass {
 
     protected static final String PRODUCTS = "/products";
 
-    @Resource
-    private WebApplicationContext webApplicationContext;
-
-    protected MockMvc mockMvc;
-
-    @Before
     public void before() throws Exception {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
+    
+	@Autowired
+	protected MockMvc mockMvc;
 
     protected ResultActions callCreateService(Product product) throws Exception {
         final String productAsJson = new Gson().toJson(product, Product.class);
