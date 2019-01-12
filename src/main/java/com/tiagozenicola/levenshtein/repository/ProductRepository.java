@@ -1,4 +1,4 @@
-package com.levenshtein.repository;
+package com.tiagozenicola.levenshtein.repository;
 
 import java.util.List;
 

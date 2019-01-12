@@ -1,4 +1,4 @@
-package com.levenshtein.helper;
+package com.tiagozenicola.levenshtein.helper;
 
 public class StringHelper {
 

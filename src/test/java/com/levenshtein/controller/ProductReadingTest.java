@@ -1,4 +1,4 @@
-package com.levenshtein.controller;
+package com.tiagozenicola.levenshtein.controller;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;

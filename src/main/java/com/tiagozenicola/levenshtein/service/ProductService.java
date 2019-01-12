@@ -1,4 +1,4 @@
-package com.levenshtein.service;
+package com.tiagozenicola.levenshtein.service;
 
 import java.util.ArrayList;
 import java.util.List;

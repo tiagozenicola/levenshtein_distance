@@ -1,4 +1,4 @@
-package com.levenshtein.model;
+package com.tiagozenicola.levenshtein.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.levenshtein.controller;
+package com.tiagozenicola.levenshtein.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 

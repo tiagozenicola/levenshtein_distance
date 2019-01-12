@@ -1,4 +1,4 @@
-package com.levenshtein.exception;
+package com.tiagozenicola.levenshtein.exception;
 
 import javax.validation.ConstraintViolationException;
 
