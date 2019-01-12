@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.levenshtein.exception.ProductNotFoundException;
-import com.levenshtein.helper.LevenshteinDistanceWithDynamicProgramming;
-import com.levenshtein.helper.StringHelper;
-import com.levenshtein.model.Product;
-import com.levenshtein.repository.ProductRepository;
+import com.tiagozenicola.levenshtein.exception.ProductNotFoundException;
+import com.tiagozenicola.levenshtein.helper.LevenshteinDistanceWithDynamicProgramming;
+import com.tiagozenicola.levenshtein.helper.StringHelper;
+import com.tiagozenicola.levenshtein.model.Product;
+import com.tiagozenicola.levenshtein.repository.ProductRepository;
 
 @Service
 public class ProductService {

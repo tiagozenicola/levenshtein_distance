@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.levenshtein.model.Product;
-import com.levenshtein.service.ProductService;
+import com.tiagozenicola.levenshtein.model.Product;
+import com.tiagozenicola.levenshtein.service.ProductService;
 
 @RequestMapping(value = ProductController.PRODUCTS)
 @Controller
