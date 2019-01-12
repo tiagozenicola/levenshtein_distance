@@ -30,8 +30,6 @@ public class ProductSearchTest extends TestSuperClass {
 
     @Before
     public void before() throws Exception {
-        super.before();
-
         if (!testInitialized) {
             testInitialized = true;
             productRepository.deleteAll();

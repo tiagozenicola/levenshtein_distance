@@ -3,6 +3,7 @@ package com.tiagozenicola.levenshtein.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,10 +15,8 @@ public class ProductCreationTest extends TestSuperClass {
     @Autowired
     private ProductRepository productRepository;
 
-    @Override
+    @Before
     public void before() throws Exception {
-        super.before();
-
         productRepository.deleteAll();
     }
 

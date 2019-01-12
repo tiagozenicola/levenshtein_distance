@@ -24,9 +24,6 @@ public abstract class TestSuperClass {
 
     protected static final String PRODUCTS = "/products";
 
-    public void before() throws Exception {
-    }
-    
 	@Autowired
 	protected MockMvc mockMvc;
 

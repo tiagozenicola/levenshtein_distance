@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.ResultActions;
@@ -18,10 +19,8 @@ public class ProductReadingTest extends TestSuperClass {
     @Autowired
     private ProductRepository productRepository;
 
-    @Override
+    @Before
     public void before() throws Exception {
-        super.before();
-
         productRepository.deleteAll();
     }
 
