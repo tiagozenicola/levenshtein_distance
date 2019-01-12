@@ -2,7 +2,8 @@ package com.tiagozenicola.levenshtein.exception;
 
 import javax.validation.ConstraintViolationException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalExceptionHandler implements ErrorHandler {
 
-    private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason = "Unable to process value or size does not fit")
     @ExceptionHandler(ConstraintViolationException.class)
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler implements ErrorHandler {
 
     @Override
     public void handleError(Throwable throwable) {
-        logger.error(throwable);
+        logger.error("Unhandled error", throwable);
     }
 
     @ExceptionHandler(Exception.class)
