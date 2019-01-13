@@ -27,7 +27,7 @@ coverage_test:
 
 load_test:
   stage: quality
-  script: echo "Enable load test as a separate suite. Ex.: ./gradlew clean load_test"
+  script: echo "Enable load test as a separate suite."
 
 deploy_to_production:
   stage: deploy
