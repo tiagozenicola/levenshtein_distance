@@ -1,4 +1,4 @@
-image: 8u191-jdk-alpine3.8
+image: 8-jdk-alpine
 
 before_script:
   - pwd
@@ -38,3 +38,4 @@ deploy_to_production:
   script:
     - echo "There is no deploy yet"
     - exit 1
+  when: manual
