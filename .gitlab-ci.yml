@@ -15,7 +15,7 @@ build:
 
 lint:
   stage: quality
-  script: ./gradlew clean lint
+  script: ./gradlew check
 
 unit_test:
   stage: quality
