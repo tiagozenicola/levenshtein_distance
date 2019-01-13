@@ -11,11 +11,7 @@ stages:
 
 build:
   stage: build
-  script: ./gradlew 
-  artifacts:
-    paths:
-      - node_modules
-    expire_in: 1 day
+  script: ./gradlew build
 
 lint:
   stage: quality
