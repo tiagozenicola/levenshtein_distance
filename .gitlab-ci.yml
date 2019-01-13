@@ -23,7 +23,7 @@ unit_test:
 
 coverage_test:
   stage: quality
-  script: ./gradlew clean coverage_test
+  script: echo "Add coverage test with minimum threshold"
 
 load_test:
   stage: quality
